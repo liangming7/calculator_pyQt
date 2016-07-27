@@ -55,18 +55,25 @@ class CalcForm(QWidget):
             res = math.sqrt(self.number_one)
             self.form.lcdNumber.display(str(res))
         elif text_button == '=':
-            self.number_one = int(self.text_number_one)
-            self.number_two = int(self.text_number_two)
-            res = 0
-            if self.operation == '+':
-                res = self.number_one + self.number_two
-            if self.operation == '-':
-                res = self.number_one - self.number_two
-            if self.operation == 'x':
-                res = self.number_one * self.number_two
-            if self.operation == '/':
-                res = self.number_one / self.number_two
-            self.form.lcdNumber.display(str(res))
+            if self.operation == '' or self.text_number_one == '' or self.text_number_two == '':
+                pass
+            else:
+                self.number_one = int(self.text_number_one)
+                self.number_two = int(self.text_number_two)
+                res = 0
+
+                if self.operation == '+':
+                    res = self.number_one + self.number_two
+                elif self.operation == '-':
+                    res = self.number_one - self.number_two
+                elif self.operation == 'x':
+                    res = self.number_one * self.number_two
+                elif self.operation == '/':
+                    if self.number_two == 0:
+                        res = 'error'
+                    else:
+                        res = self.number_one / self.number_two
+                self.form.lcdNumber.display(str(res))
         elif text_button == 'C':
             self.form.lcdNumber.display('0')
             self.number_one = 0
